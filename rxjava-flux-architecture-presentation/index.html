@@ -178,8 +178,8 @@
 					<pre><code class="kotlin" data-trim contenteditable>
 abstract class Reactor&lt;in Action, Mutation, State>(state: State) {
 	private val actionSubject: Subject&lt;Action> = PublishSubject.create()
-	private val initialViewState = state
-	var currentViewState = initialViewState
+	private val initialState = state
+	var currentState = initialState
 		private set
 	
 	val stateStream: Observable&lt;State>
@@ -187,9 +187,9 @@ abstract class Reactor&lt;in Action, Mutation, State>(state: State) {
 	init {
 		val mutationsStream = actionSubject.flatMap { mutate(it) }
 		stateStream = mutationsStream
-			.scan(initialViewState) { state, mutation -> reduce(state, mutation) }
-			.startWith(initialViewState)
-			.doOnNext { currentViewState = it }
+			.scan(initialState) { state, mutation -> reduce(state, mutation) }
+			.startWith(initialState)
+			.doOnNext { currentState = it }
 	}
 	
 	fun onAction(action: Action) = actionSubject.onNext(action)
