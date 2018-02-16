@@ -272,34 +272,6 @@ sealed class ItemsMutation {
 				<section>
 						<h2>Reactorの実装</h2>
 						<pre><code class="kotlin" data-trim contenteditable>
-abstract class Reactor&lt;in Action, Mutation, State>(state: State) {
-	private val actionSubject: Subject&lt;Action> = PublishSubject.create()
-	private val initialViewState = state
-	var currentViewState = initialViewState
-		private set
-	
-	val stateStream: Observable&lt;State>
-	
-	init {
-		val mutationsStream = actionSubject.flatMap { mutate(it) }
-		stateStream = mutationsStream
-			.scan(initialViewState) { state, mutation -> reduce(state, mutation) }
-			.startWith(initialViewState)
-			.doOnNext { currentViewState = it }
-	}
-	
-	fun onAction(action: Action) = actionSubject.onNext(action)
-	
-	abstract fun mutate(action: Action): Observable&lt;Mutation>
-	abstract fun reduce(state: State, mutation: Mutation): State
-}
-						</code></pre>
-					</section>
-
-
-				<section>
-						<h2>Reactorの実装</h2>
-						<pre><code class="kotlin" data-trim contenteditable>
 class ItemsReactora(state: ItemsState) : Reactora&lt;ItemsAction, ItemsMutation, ItemsState>(state) {
 	override fun mutate(action: ItemsAction): Observable&lt;ItemsMutation>
 	override fun reduce(state: ItemsState, mutation: ItemsMutation): ItemsState
