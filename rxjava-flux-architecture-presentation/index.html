@@ -272,7 +272,7 @@ sealed class ItemsMutation {
 				<section>
 						<h2>Reactorの実装</h2>
 						<pre><code class="kotlin" data-trim contenteditable>
-class ItemsReactora(state: ItemsState) : Reactora&lt;ItemsAction, ItemsMutation, ItemsState>(state) {
+class ItemsReactor(state: ItemsState) : Reactor&lt;ItemsAction, ItemsMutation, ItemsState>(state) {
 	override fun mutate(action: ItemsAction): Observable&lt;ItemsMutation>
 	override fun reduce(state: ItemsState, mutation: ItemsMutation): ItemsState
 }									
@@ -321,7 +321,7 @@ override fun reduce(state: ItemsState, mutation: ItemsMutation): ItemsState {
 						<h2>Viewの実装</h2>
 						<pre><code class="kotlin" data-trim contenteditable>
 class ItemsActivity : AppCompatActivity() {
-	private val reactor = ItemsReactora(ItemsState(isLoading = false, items = emptyList()))
+	private val reactor = ItemsReactor(ItemsState(isLoading = false, items = emptyList()))
 
 	override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -341,7 +341,7 @@ class ItemsActivity : AppCompatActivity() {
 						<h2>Viewの実装</h2>
 						<pre><code class="kotlin" data-trim contenteditable>
 class ItemsActivity : AppCompatActivity() {
-	private val reactor = ItemsReactora(ItemsState(isLoading = false, items = emptyList()))
+	private val reactor = ItemsReactor(ItemsState(isLoading = false, items = emptyList()))
 
 	override fun onResume() {
 		super.onResume()
@@ -357,7 +357,7 @@ class ItemsActivity : AppCompatActivity() {
 						<h2>Viewの実装</h2>
 						<pre><code class="kotlin" data-trim contenteditable>
 class ItemsActivity : AppCompatActivity() {
-	private val reactor = ItemsReactora(ItemsState(isLoading = false, items = emptyList()))
+	private val reactor = ItemsReactor(ItemsState(isLoading = false, items = emptyList()))
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
