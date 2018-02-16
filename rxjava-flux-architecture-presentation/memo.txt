@@ -1,0 +1,62 @@
+# RxJavaを使った単方向データフローアーキテクチャの実践
+
+# 自己紹介
+- 岡本
+- iOS/Androidエンジニア
+
+# 発表をしようとおもった背景
+- iOSアプリを2017/4リリース。MVVMで実装
+  - 2/13時点で36回リリース
+  - 大体毎週リリースのペース
+  - コードの見通しが悪くなってきた
+  - 単方向にしたい
+- Androidアプリの開発を2017/7から開始
+  - fluxの採用を検討
+  - fluxの実装を冗長だと感じ、データフローをRxのObservableで実現したいと思う
+  - iOSのライブラリでReactorKitというものがあるのを知る
+
+# ReactorKitの紹介
+- iOSのライブラリ
+  - Star: 901
+- Basic Concept
+  - ReactorKit is a combination of Flux and Reactive Programming.
+  - 図を表示
+  
+# Rxのマーブルダイアグラムで表現するとこんな感じ
+- 図を表示
+
+# Androidにはライブラリが無いのでReactorを自作
+
+# githubを例に実装を紹介
+
+- ViewState
+- Action
+- Mutation
+- Reactor
+- View
+
+# お気に入り問題
+-eventBusとの連携
+
+# Toast表示問題
+- navigationStreamの実装
+
+# fragmentライフサイクル問題
+- 
+
+#メリット
+- 単方向データフローでコードの見通しが抜群によくなった
+- 記述量が少ないと思う
+
+# メンバーの反応
+flux なのにdispatherがいない
+droidkaigiのMVIは一緒でした
+
+# 今後
+- AACを用いた実装
+- rxの活用
+
+# 参考
+- https://speakerdeck.com/shaunkawano/flux-for-android
+- https://speakerdeck.com/oldergod/android-niokeru-model-view-intent-akitekutiya
+- https://speakerdeck.com/yusuga/iosapurifalseakitekutiyanituitekao-eru

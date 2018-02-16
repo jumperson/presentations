@@ -1,0 +1,526 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style type="text/css">
+		  .reveal h1,
+		  .reveal h2,
+		  .reveal h3,
+		  .reveal h4,
+		  .reveal h5,
+		  .reveal h6 {
+		    text-transform: none;
+		  }
+		</style>
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<h2>RxJavaを使った単方向データフローアーキテクチャの実践</h2>
+					<p><a href="https://connpass.com/event/73993/">DroidKaigi 2018 Reject Conference</a></p>
+				</section>
+
+				<section>
+					<h2>自己紹介</h2>
+					<ul>
+						<li>岡本</li>
+						<li>株式会社カカクコム</li>
+						<li>iOS/Androidエンジニア</li>
+						<li>チームマネジメント</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>RxJavaを使った単方向データフローアーキテクチャの実践</h2>
+				</section>
+
+				<section>
+					<p>
+						わかりづらい
+					</p>
+				</section>
+
+				<section>
+					<h2>RxJavaを使った単方向データフローアーキテクチャの実践</h2>
+					<h2>↓</h2>					
+					<h2>RxJavaを使ったFluxアーキテクチャ</h2>					
+				</section>
+
+				<section>
+					<p>
+						改めまして
+					</p>
+				</section>
+
+				<section>
+					<h2>RxJavaを使ったFluxアーキテクチャ</h2>
+					<p><a href="https://connpass.com/event/73993/">DroidKaigi 2018 Reject Conference</a></p>
+				</section>
+
+				<section>
+					<h2>この発表のゴール</h2>
+					<ul>
+						<li>“RxJavaを使ったFluxアーキテクチャ”を知ってもらう</li>
+						<li>このアーキテクチャが有用なパターンのイメージを持ってもらう</li>
+						<li>iOSのライブラリReactorKitを知ってもらう</li>
+					</ul>
+				</section>
+
+				<section>
+						<h2>アジェンダ</h2>
+						<ul>
+							<li>Fluxを採用した背景</li>
+							<li>Fluxについて</li>
+							<li>ReactorKitの紹介</li>
+							<li>Androidの実装</li>
+							<li>実装してみた感想</li>
+							<li>今後の課題</li>
+						</ul>
+				</section>
+
+				<section>
+						<h2>Fluxを採用した背景</h2>
+						<ul>
+							<li>iOSアプリ</li>
+							<ul>
+								<li>2017/04にリリース</li>
+								<li>MVVMを採用</li>
+								<li>課題</li>
+								<ul>
+										<li>VM肥大化</li>
+										<li>コードの見通しが悪くコードレビュー負荷増</li>
+										<li>VMの状態の変化が追いづらい</li>
+								</ul>
+							</ul>
+							<li>Androidアプリ</li>
+							<ul>
+									<li>2017/07に開発スタート</li>
+									<li>Fluxを採用</li>
+									<li>2017/12にリリース</li>
+							</ul>				
+						</ul>
+				</section>
+
+				<section>
+						<h2>Fluxについて</h2>
+			
+						<img data-src="./img/flux-diagram.png">
+						<p style="position: absolute;">https://facebook.github.io/flux/docs/in-depth-overview.html 18/02/15</p>
+				</section>
+
+				<section>
+						<h2>jsのFluxについて</h2>
+			
+						<img data-src="./img/flux-js-diagram.png">
+						<p style="position: absolute;">https://github.com/facebook/flux 18/02/15</p>						
+				</section>
+	
+				<section>
+						<h2>Fluxの所感	</h2>
+						<ul>
+							<li>Fluxはシンプルで良さそう</li>
+							<li>jsのFluxは登場人物が多い</li>
+							<li>Fluxの単方向データフローにRxを使えないか？</li>
+						</ul>
+				</section>
+
+				<section>
+						<p>Fluxの単方向データフローにRxを使えないか？</p>
+				</section>
+
+				<section>
+						<img style="background-color: #FFFFFF;" data-src="./img/reactorkit-logo.png">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/16</p>
+				</section>
+
+				<section>
+						<h2>ReactorKitの紹介</h2>
+						<ul>
+							<li>Swiftのライブラリ</li>
+							<ul>
+								<li><a href="https://github.com/ReactorKit/ReactorKit">https://github.com/ReactorKit/ReactorKit</a></li>
+							</ul>
+							<li>Star: 901（07/02/15時点）</li>
+							<li>Basic Concept</li>
+							<ul>
+									<li>ReactorKit is a combination of Flux and Reactive Programming.</li>
+							</ul>
+							<li>小さいライブラリ</li>
+							<ul>
+								<li>Reactorも178行と非常に小さい（07/02/15時点）</li>
+							</ul>
+							<li>データフローをRxで実装</li>
+							<li>Androidのライブラリはない</li>
+						</ul>
+				</section>
+
+				<section>
+					<ul>
+						<li>Androidのライブラリはない</li>
+						<li>ただし、小さなライブラリなので自作できそう</li>
+						<li>Fluxの採用を決める</li>
+					</ul>
+				</section>
+
+				<section>
+						<h2>ReactorKitのアーキテクチャ</h2>
+			
+						<img data-src="./img/reactorkit-diagram.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>ReactorKitのアーキテクチャ</h2>
+			
+						<img data-src="./img/reactorkit-diagram-sideeffect.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>データフローをRxで実装</h2>
+			
+						<img data-src="./img/my-reactor-diagram.png" height="340">
+				</section>
+
+				<section>
+					<h2>Androidの実装</h2>
+					<pre><code class="kotlin" data-trim contenteditable>
+abstract class Reactor&lt;in Action, Mutation, State>(state: State) {
+	private val actionSubject: Subject&lt;Action> = PublishSubject.create()
+	private val initialViewState = state
+	var currentViewState = initialViewState
+		private set
+	
+	val stateStream: Observable&lt;State>
+	
+	init {
+		val mutationsStream = actionSubject.flatMap { mutate(it) }
+		stateStream = mutationsStream
+			.scan(initialViewState) { state, mutation -> reduce(state, mutation) }
+			.startWith(initialViewState)
+			.doOnNext { currentViewState = it }
+	}
+	
+	fun onAction(action: Action) = actionSubject.onNext(action)
+	
+	abstract fun mutate(action: Action): Observable&lt;Mutation>
+	abstract fun reduce(state: State, mutation: Mutation): State
+}
+					</code></pre>
+				</section>
+
+				<section>
+						<ul>
+								<li>アーキテクチャの説明のために以下の機能のみを持ったアプリで実装を紹介</li>
+								<ul>
+									<li>初回データ読み込み</li>
+									<li>データの更新</li>
+								</ul>
+						</ul>
+				</section>
+
+				<section>
+						<h2>Actionの実装</h2>
+			
+						<img data-src="./img/reactorkit-diagram.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>Actionの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+sealed class ItemsAction {
+	object Load : ItemsAction()
+	object Reload : ItemsAction()
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Stateの実装</h2>
+			
+						<img data-src="./img/reactorkit-diagram.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>Stateの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+data class ItemsState(val isLoading: Boolean, val items: List&lt;String>)
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Mutationの実装</h2>
+			
+						<img data-src="./img/reactorkit-diagram.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>Mutationの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+sealed class ItemsMutation {
+	data class SetLoading(val isLoading: Boolean) : ItemsMutation()
+	data class SetItems(val items: List&lt;String>) : ItemsMutation()
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Reactorの実装</h2>
+			
+						<img data-src="./img/reactorkit-diagram.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>Reactorの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+abstract class Reactor&lt;in Action, Mutation, State>(state: State) {
+	private val actionSubject: Subject&lt;Action> = PublishSubject.create()
+	private val initialViewState = state
+	var currentViewState = initialViewState
+		private set
+	
+	val stateStream: Observable&lt;State>
+	
+	init {
+		val mutationsStream = actionSubject.flatMap { mutate(it) }
+		stateStream = mutationsStream
+			.scan(initialViewState) { state, mutation -> reduce(state, mutation) }
+			.startWith(initialViewState)
+			.doOnNext { currentViewState = it }
+	}
+	
+	fun onAction(action: Action) = actionSubject.onNext(action)
+	
+	abstract fun mutate(action: Action): Observable&lt;Mutation>
+	abstract fun reduce(state: State, mutation: Mutation): State
+}
+						</code></pre>
+					</section>
+
+
+				<section>
+						<h2>Reactorの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+class ItemsReactora(state: ItemsState) : Reactora&lt;ItemsAction, ItemsMutation, ItemsState>(state) {
+	override fun mutate(action: ItemsAction): Observable&lt;ItemsMutation>
+	override fun reduce(state: ItemsState, mutation: ItemsMutation): ItemsState
+}									
+						</code></pre>
+				</section>
+				<section>
+						<h2>Reactor#mutateの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+override fun mutate(action: ItemsAction): Observable&lt;ItemsMutation> {
+	return when (action) {
+		is ItemsAction.Load -> Observable.concat(
+				Observable.just(ItemsMutation.SetLoading(isLoading = true)),
+				Service.items().flatMap {
+					Observable.just(
+							ItemsMutation.SetItems(items = it),
+							ItemsMutation.SetLoading(isLoading = false)
+					)
+				}
+		)
+		is ItemsAction.Reload -> Observable.empty() // TODO: 仮実装
+	}
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Reactor#reduceの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+override fun reduce(state: ItemsState, mutation: ItemsMutation): ItemsState {
+	return when (mutation) {
+		is ItemsMutation.SetItems -> state.copy(items = mutation.items)
+		is ItemsMutation.SetLoading -> state.copy(isLoading = mutation.isLoading)
+	}
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Viewの実装</h2>
+			
+						<img data-src="./img/reactorkit-diagram.png" height="340">
+						<p style="position: absolute;">https://github.com/ReactorKit/ReactorKit 18/02/15</p>												
+				</section>
+
+				<section>
+						<h2>Viewの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+class ItemsActivity : AppCompatActivity() {
+	private val reactor = ItemsReactora(ItemsState(isLoading = false, items = emptyList()))
+
+	override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        reactor.stateStream
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ 
+                    // UI変更
+                })
+    }
+
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Viewの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+class ItemsActivity : AppCompatActivity() {
+	private val reactor = ItemsReactora(ItemsState(isLoading = false, items = emptyList()))
+
+	override fun onResume() {
+		super.onResume()
+
+		reactor.onAction(ItemsAction.Load)
+	}
+
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<h2>Viewの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+class ItemsActivity : AppCompatActivity() {
+	private val reactor = ItemsReactora(ItemsState(isLoading = false, items = emptyList()))
+
+	override fun onOptionsItemSelected(item: MenuItem): Boolean {
+		when (item.itemId) {
+			R.id.press_menu_bookmark -> {
+				reactor.onAction(ItemsAction.Reload)
+				return true
+			}
+			else -> return super.onOptionsItemSelected(item)
+		}
+	}
+}
+						</code></pre>
+				</section>
+
+				<section>
+						<p>これでReactorKitのアーキテクチャについて一通り説明</p>
+				</section>
+
+				<section>
+						<h2>導入時に考慮すべきこと</h2>
+						<ul>
+							<li>Androirdのライフサイクル</li>
+							<li>画面遷移</li>
+							<li>差分更新</li>
+							<li>画面外で発生するAction</li>
+							<li>Hot/Cold</li>
+						</ul>
+				</section>
+
+				<section>
+						<h2>現在使っているReactorの実装</h2>
+						<pre><code class="kotlin" data-trim contenteditable>
+abstract class Reactor&lt;Action, Mutation, ViewState, Navigation>(
+		viewState: ViewState,
+		actionStream: Observable&lt;Action> = Observable.empty()) {
+	private val actionSubject: Subject&lt;Action> = PublishSubject.create()
+	private val initialViewState = viewState
+	var currentViewState = initialViewState
+		private set
+	private val disposables = CompositeDisposable()
+
+	val startingWithCurrentViewStateStream get() = viewStateStream.startWith(currentViewState)
+	val viewStateStream: Observable&lt;ViewState>
+	val navigationStream: Observable&lt;Navigation>
+
+	init {
+		val mutationsStream = actionSubject.mergeWith(actionStream).flatMap { mutate(it) }.replay().refCount()
+		viewStateStream = mutationsStream
+				.scan(initialViewState) { state, mutation -> return@scan mutation.fold(state) { viewState, mutation -> reduce(viewState, mutation) } }
+				.startWith(initialViewState)
+				.doOnNext { currentViewState = it }
+				.publish().also { disposables.add(it.connect()) }
+
+
+		navigationStream = mutationsStream
+				.flatMap { Observable.fromIterable(it) }
+				.flatMap { navigate(it) }
+				.publish().also { disposables.add(it.connect()) }
+
+	}
+
+	fun onAction(action: Action) = actionSubject.onNext(action)
+
+	fun dispose() = disposables.dispose()
+
+	abstract fun mutate(action: Action): Observable&lt;List&lt;Mutation>>
+	abstract fun reduce(viewState: ViewState, mutation: Mutation): ViewState
+	abstract fun navigate(mutation: Mutation): Observable&lt;Navigation>
+}
+						</code></pre>
+
+						<p style="position: absolute;">ここではStateをViewStateという表現に変更しています</p>												
+					</section>
+
+					<section>
+							<h2>実装してみた感想</h2>
+							<ul>
+								<li>単方向データフローにしてコードの見通しが抜群に良くなった</li>
+								<li>どこに何を実装すべきかより明確になった</li>
+								<li>記述量は若干増えた</li>
+							</ul>
+					</section>
+
+					<section>
+							<h2>今後の課題</h2>
+							<ul>
+								<li>画面共通化問題</li>
+								<li>Android Architecture Componentの利用</li>
+								<li>RxJavaの活用</li>
+							</ul>
+					</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
