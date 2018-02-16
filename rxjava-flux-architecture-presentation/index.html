@@ -353,25 +353,6 @@ class ItemsActivity : AppCompatActivity() {
 				</section>
 
 				<section>
-						<h2>Viewの実装</h2>
-						<pre><code class="kotlin" data-trim contenteditable>
-class ItemsActivity : AppCompatActivity() {
-	private val reactor = ItemsReactor(ItemsState(isLoading = false, items = emptyList()))
-
-	override fun onOptionsItemSelected(item: MenuItem): Boolean {
-		when (item.itemId) {
-			R.id.press_menu_bookmark -> {
-				reactor.onAction(ItemsAction.Reload)
-				return true
-			}
-			else -> return super.onOptionsItemSelected(item)
-		}
-	}
-}
-						</code></pre>
-				</section>
-
-				<section>
 						<p>これでReactorKitのアーキテクチャについて一通り説明</p>
 				</section>
 
